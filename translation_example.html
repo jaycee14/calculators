@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Switch Example</title>
+</head>
+
+<body>
+
+    <h1 id="main-heading"></h1>
+    <p id="intro-text"></p>
+    <button onclick="changeLanguage('en')">English</button>
+    <button onclick="changeLanguage('es')">Español</button>
+
+    <script>
+        // Function to load a JSON file using fetch
+        function loadTranslations(callback) {
+            fetch('translations_examples.json')
+                .then(response => response.json())
+                .then(data => callback(data))
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Function to update content based on language
+        function updateContent(translations, lang) {
+            document.getElementById('main-heading').textContent = translations[lang]['main-heading'];
+            document.getElementById('intro-text').textContent = translations[lang]['intro-text'];
+        }
+
+        // Function to change the language
+        function changeLanguage(lang) {
+            loadTranslations(function (translations) {
+                // Default to English if the selected language is not available
+                const selectedLang = translations[lang] ? lang : 'en';
+                updateContent(translations, selectedLang);
+            });
+        }
+
+        // Initial content load with default language (English)
+        changeLanguage('en');
+    </script>
+
+</body>
+
+</html>
