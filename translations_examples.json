@@ -1,0 +1,11 @@
+{
+    "en": {
+      "main-heading": "Hello, World!",
+      "intro-text": "This is a simple example of language switching."
+    },
+    "es": {
+      "main-heading": "¡Hola, Mundo!",
+      "intro-text": "Este es un ejemplo simple de cambio de idioma."
+    }
+  }
+  
