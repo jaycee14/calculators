@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="description">
+    <title>Your Blog</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for fixed navbar, scrolling sidebar, and web cards */
+        body {
+            padding-top: 56px; /* Adjust the padding to accommodate the fixed navbar height */
+        }
+
+        main {
+            padding: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <a href="index.html">
+            <span class="navbar-brand mb-0 h1">Calculators</span>
+        </a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+        <!-- Main Content -->
+        <main>
+            <div class="row">
+                <h1 class="mb-4">Alcohol Units Calculator</h1>
+            </div>
+
+            <!-- Slider -->
+            <div class="row mt-4">
+                <h4>Use the slider to set the percentage...</h4>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="beer_percent">Drink Percentage:</label>
+                    <input type="range" class="form-control-range w-100" id="beer_percent" min="0.5" max="45" step="0.1" value="5">
+                </div>
+                <div class="col-md-2">
+                    <label for="beer_percentage_out">Percentage:</label>
+                    <input type="text" class="form-control" id="beer_percentage_out" readonly>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+            <h4>Choose a volume - slider or quick set buttons</h4>
+            </div>
+            <!-- Slider -->
+            <div class="row">
+            <div class="col-md-10">
+                <label for="beer_volume">Drink Volume (ml):</label>
+                <input type="range" class="form-control-range w-100" id="beer_volume" min="25" max="1000" step="1" value="568">
+            </div>
+            <div class="col-md-2">
+                <label for="beer_volume_out">Volume:</label>
+                <input type="text" class="form-control" id="beer_volume_out" readonly>
+            </div>
+            </div>
+
+            <!-- Buttons -->
+
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <button class="btn btn-primary w-100" onclick="set_volume(284)">Half pint (284ml)</button>
+                </div>
+                <div class="col-md-4">
+                <button class="btn btn-primary w-100" onclick="set_volume(330)">Bottle (330ml)</button>
+                </div>
+                <div class="col-md-4">
+                <button class="btn btn-primary w-100" onclick="set_volume(568)">Pint (568ml)</button>
+                </div>
+            </div>
+
+                <!-- Buttons -->
+                <div class="row mt-4">
+                <div class="col-md-3">
+                    <button class="btn btn-primary w-100" onclick="set_volume(125)">Small Glass (125ml)</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary w-100" onclick="set_volume(175)">Medium Glass (175ml)</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary w-100" onclick="set_volume(250)">Large Glass (250ml)</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary w-100" onclick="set_volume(375)">Half bottle (375ml)</button>
+                </div>
+            </div>
+
+            <!-- Output Boxes -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <label for="alcohol_output">Alcohol (ml):</label>
+                    <input type="text" class="form-control" id="alcohol_output" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="units_output">Units:</label>
+                    <input type="text" class="form-control" id="units_output" readonly>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <button class="btn btn-danger w-100" onclick="calc_alcohol()">Calculate</button>
+                </div>
+            </div>
+        </main>
+
+</div>
+
+<!-- Bootstrap JS (Optional if you need JS functionality) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+ 
+ <script>
+   // Get the elements
+   var beer_percentage_out = document.getElementById("beer_percentage_out");
+   var beer_volume_out = document.getElementById("beer_volume_out");
+   var beer_percent = document.getElementById("beer_percent");
+   var beer_volume = document.getElementById("beer_volume");
+
+   var wine_percentage_out = document.getElementById("wine_percentage_out");
+   var wine_volume_out = document.getElementById("wine_volume_out");
+   var wine_percent = document.getElementById("wine_percent");
+   var wine_volume = document.getElementById("wine_volume");
+
+   var alcohol_output = document.getElementById("alcohol_output");
+   var units_output = document.getElementById("units_output");
+
+   // Display initial slider value
+   beer_percentage_out.value = beer_percent.value;
+   beer_volume_out.value = beer_volume.value;
+
+
+   // Update the current slider value on input change
+   beer_percent.oninput = function() {
+       beer_percentage_out.value = this.value;
+   };
+
+   beer_volume.oninput = function() {
+       beer_volume_out.value = this.value;
+   };
+
+   function set_volume(volume){
+     beer_volume.value=volume;
+     beer_volume_out.value = volume;
+
+     calc_alcohol();
+
+   };
+
+   function calc_alcohol(){
+       var volume = beer_volume.value;
+       var alcohol = volume * (beer_percent.value/100);
+       alcohol_output.value= Math.round((alcohol + Number.EPSILON) * 100) / 100;
+
+       var units = alcohol /10;
+       units_output.value = Math.round((units + Number.EPSILON) * 100) / 100;
+   }
+ </script>
+
+</body>
+</html>
