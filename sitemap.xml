@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <!-- Homepage -->
-    <!-- https://www.google.com/ping?sitemap=https://sunburn-calculator.pages.dev/sitemap.xml -->
+    <!-- https://www.google.com/ping?sitemap=https://web-calculators.pages.dev/sitemap.xml -->
     
     <url>
         <loc>https://web-calculators.pages.dev/index.html</loc>
@@ -10,13 +10,18 @@
     </url>
 
     <url>
-        <loc>https://web-calculators.pages.dev/alcohol_units_calculator</loc>
+        <loc>https://web-calculators.pages.dev/alcohol_units_calculator.html</loc>
         <lastmod>2024-01-18</lastmod>
     </url>
 
     <url>
-        <loc>https://sunburn-calculator.pages.dev/privacy.html</loc>
-        <lastmod>22023-10-09</lastmod>
+        <loc>https://web-calculators.pages.dev/blog.html</loc>
+        <lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+        <loc>https://web-calculators.pages.dev/privacy.html</loc>
+        <lastmod>22024-01-18</lastmod>
     </url>
 
 </urlset>
