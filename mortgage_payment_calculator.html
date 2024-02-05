@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="description">
+    <title>Mortgage Payment Calculator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for fixed navbar, scrolling sidebar, and web cards */
+        body {
+            padding-top: 56px; /* Adjust the padding to accommodate the fixed navbar height */
+        }
+
+        main {
+            padding: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <a href="index.html">
+            <span class="navbar-brand mb-0 h1">Calculators</span>
+        </a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <!-- Main Content -->
+    <main>
+        
+
+        <h1 lass="text-center">Mortgage Payment Calculator</h1>
+      	<div class="row justify-content-center">
+      	<div class="col-md-12">
+      		<form id="formId" onSubmit="processInput(); return false;">
+	      		<fieldset>
+	      			<div class="form-group">
+								<label for="balance">Outstanding Balance (1000-1000000):</label>
+								<input class="form-control" type="text" inputmode="numeric" pattern="\d*" id="balance" name="balance" value="250000"/>
+							</div>
+			
+							<div class="form-group">
+							<label for="years">Full Years remaining (1-25):</label>
+							<input class="form-control" type="number" id="years" name="years" min="1" max="25" value="20">
+							</div>
+
+							<div class="form-group">
+							<label for="months">Months remaining (0-12):</label>
+							<input class="form-control" type="number" id="months" name="months" min="0" max="12" value="0">
+							</div>
+
+							<div class="form-group">
+							<label for="interest">Annual Interest Rate (0.01-100) %:</label>
+							<input class="form-control" type="number" id="interest" name="interest" min="0.01" max="100" value="4">
+							</div>
+	      		</fieldset>
+	      		<fieldset>
+	        		<button type="button" id="button" onclick="processInput()" class="btn btn-primary">Submit</button>
+	        		<button type="button" id ="reset" onclick="resetForm()" class="btn btn-default"/>Reset</button>
+	      		</fieldset>
+	     		</form>	
+	     	</div>
+	     	<div class="row">
+	     		<div class="col-md-12">
+	     			<div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <h5 class="card-title">Monthly Mortgage Payment:</h5>
+                        <h3 class="card-text" id="results"></h3>
+                    </div>
+            </div>
+          </div>
+        </div>
+        </div>
+    </main>
+</div>
+
+<script type="text/javascript">
+	
+    function processInput() {
+        
+        var balance = parseFloat(document.getElementById('balance').value);
+        var years = parseInt(document.getElementById('years').value,10);
+        var months = parseInt(document.getElementById('months').value,10);
+        var interest = parseFloat(document.getElementById('interest').value);
+    
+        var period = (years * 12) + months;
+        var im = (interest / 100) /12;
+    
+        var ni = (1+im)**period;
+        var pmt = balance * ( (im* ni) / (ni - 1) );
+    
+        var output = Math.round((pmt + Number.EPSILON) * 100) / 100;
+    
+        // console.log(balance, period, i, ni, pmt, output);
+    
+        document.getElementById('results').innerHTML = output;
+    
+    }
+    function resetForm(){
+    
+            document.getElementById('balance').value = "250000";
+            document.getElementById('years').value = "20";
+            document.getElementById('months').value = "0";
+            document.getElementById('interest').value = "4";
+            document.getElementById('results').innerHTML = "";
+    
+    }
+    
+    </script>
+<!-- Bootstrap JS (Optional if you need JS functionality) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>
+
+</script>
+</body>
+</html>
+
