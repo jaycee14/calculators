@@ -29,7 +29,7 @@
     </div>
 </nav>
 
-<div class="container mt-5">
+<div class="container-fluid mt-5">
         <!-- Main Content -->
         <main>
             <div class="row">
@@ -38,17 +38,33 @@
 
             <!-- Slider -->
             <div class="row mt-4">
-                <h4>Use the slider to set the percentage...</h4>
+                <h4>Choose a percentage - slider or quick set buttons</h4>
             </div>
 
             <div class="row">
                 <div class="col-md-10">
-                    <label for="beer_percent">Drink Percentage:</label>
+                    <label for="beer_percent">Drink Percentage (%):</label>
                     <input type="range" class="form-control-range w-100" id="beer_percent" min="0.5" max="45" step="0.1" value="5">
                 </div>
                 <div class="col-md-2">
                     <label for="beer_percentage_out">Percentage:</label>
                     <input type="text" class="form-control" id="beer_percentage_out" readonly>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <button class="btn btn-primary w-100" onclick="set_percentage(3.8)">Light Beer (3.8%)</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary w-100" onclick="set_percentage(5.5)">Strong Beer (5.5%)</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary w-100" onclick="set_percentage(12.5)">Wine (12.5%)</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary w-100" onclick="set_percentage(40)">Spirits (40%)</button>
                 </div>
             </div>
 
@@ -109,21 +125,28 @@
                 </div>
             </div>
 
-            <div class="row mt-4">
+            <!-- <div class="row mt-4">
                 <div class="col-12">
                     <button class="btn btn-danger w-100" onclick="calc_alcohol()">Calculate</button>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Explain section -->
             <hr />
             <h2 class="mb-4">Calculator Explanation</h2>
+            <div class="row">
+                <p>
+                    The amount of alcohol contained in a drink is calculated by multiplying the percentage of alcohol (using a percentage value expressed as a decimal - a value betwen 0 and 1) 
+                    with the volume measure in millilitres. This is then divided by 10 to give the amount in units.
+                </p>
+            </div>
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-6">
+                    
                     <div class="text-center">
                         <p>
                             <math xmlns="http://www.w3.org/1998/Math/MathML">
-                                <mstyle mathsize="1.5em">
+                                <mstyle mathsize="1.2em">
                                 <mrow>
                                 <mi>Alcohol (in ml)</mi>
                                 <mo>=</mo>
@@ -136,7 +159,7 @@
                         </p>
                         <p>
                             <math xmlns="http://www.w3.org/1998/Math/MathML">
-                                <mstyle mathsize="1.5em">
+                                <mstyle mathsize="1.2em">
                                 <mrow>
                                 <mi>Alcohol Units</mi>
                                 <mo>=</mo>
@@ -152,13 +175,17 @@
             </div>
 
             <h3>Example</h3>
-
+            <div class="row">
+                <p>
+                    For a pint (568ml) of strong beer (5.5%) the amount of alcohol is 31.24 ml or 3.12 units.    
+                </p>
+            </div>
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-6">
                     <div class="text-center">
                         <p>
                             <math xmlns="http://www.w3.org/1998/Math/MathML">
-                                <mstyle mathsize="1.5em">
+                                <mstyle mathsize="1.2em">
                                 <mrow>
                                 <mi>31.24 ml alcohol</mi>
                                 <mo>=</mo>
@@ -171,7 +198,7 @@
                         </p>
                         <p>
                             <math xmlns="http://www.w3.org/1998/Math/MathML">
-                                <mstyle mathsize="1.5em">
+                                <mstyle mathsize="1.2em">
                                 <mrow>
                                 <mi>3.12 Units</mi>
                                 <mo>=</mo>
@@ -195,49 +222,62 @@
  
  <script>
    // Get the elements
-   var beer_percentage_out = document.getElementById("beer_percentage_out");
-   var beer_volume_out = document.getElementById("beer_volume_out");
-   var beer_percent = document.getElementById("beer_percent");
-   var beer_volume = document.getElementById("beer_volume");
+   var percentage_out = document.getElementById("beer_percentage_out");
+   var volume_out = document.getElementById("beer_volume_out");
+   var percent = document.getElementById("beer_percent");
+   var volume = document.getElementById("beer_volume");
 
-   var wine_percentage_out = document.getElementById("wine_percentage_out");
-   var wine_volume_out = document.getElementById("wine_volume_out");
-   var wine_percent = document.getElementById("wine_percent");
-   var wine_volume = document.getElementById("wine_volume");
+//    var wine_percentage_out = document.getElementById("wine_percentage_out");
+//    var wine_volume_out = document.getElementById("wine_volume_out");
+//    var wine_percent = document.getElementById("wine_percent");
+//    var wine_volume = document.getElementById("wine_volume");
 
    var alcohol_output = document.getElementById("alcohol_output");
    var units_output = document.getElementById("units_output");
 
    // Display initial slider value
-   beer_percentage_out.value = beer_percent.value;
-   beer_volume_out.value = beer_volume.value;
+   percentage_out.value = percent.value;
+   volume_out.value = volume.value;
 
 
    // Update the current slider value on input change
-   beer_percent.oninput = function() {
-       beer_percentage_out.value = this.value;
+   percent.oninput = function() {
+       percentage_out.value = this.value;
+
+       calc_alcohol();
    };
 
-   beer_volume.oninput = function() {
-       beer_volume_out.value = this.value;
+   volume.oninput = function() {
+       volume_out.value = this.value;
+
+       calc_alcohol();
    };
 
-   function set_volume(volume){
-     beer_volume.value=volume;
-     beer_volume_out.value = volume;
+   function set_volume(volume_value){
+     volume.value=volume_value;
+     volume_out.value = volume_value;
 
      calc_alcohol();
 
    };
 
+   function set_percentage(percent_value){
+    percent.value = percent_value;
+    percentage_out.value = percent_value;
+
+    calc_alcohol();
+   }
+
    function calc_alcohol(){
-       var volume = beer_volume.value;
-       var alcohol = volume * (beer_percent.value/100);
+    //    var volume_calc = volume.value;
+       var alcohol = volume.value * (percent.value/100);
        alcohol_output.value= Math.round((alcohol + Number.EPSILON) * 100) / 100;
 
        var units = alcohol /10;
        units_output.value = Math.round((units + Number.EPSILON) * 100) / 100;
    }
+
+   calc_alcohol();
  </script>
 
 </body>
