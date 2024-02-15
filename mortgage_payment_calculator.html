@@ -29,64 +29,179 @@
     </div>
 </nav>
 
-<div class="container mt-5">
+<div class="container-fluid mt-5">
     <!-- Main Content -->
     <main>
+
+        <div class="row">
+            <h1 class="mb-4">Mortgage Payment Calculator</h1>
+            <p>
+                Quickly calculate the monthly payment amount based on the amount borrowed, interest rate and time.
+            </p>
+        </div>
+
+        <!-- Slider -->
+        <div class="row mt-4">
+            <h4>Period</h4>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <label for="years_out">Years:</label>
+                <input type="text" class="form-control" id="years_out" readonly>
+            </div>
+            <div class="col-md-10">
+                <label for="years_input">Years:</label>
+                <input type="range" class="form-control-range w-100" id="years_input" min="1" max="35" step="1" value="25">
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <label for="months_out">Months:</label>
+                <input type="text" class="form-control" id="months_out" readonly>
+            </div>
+            <div class="col-md-10">
+                <label for="months_input">Months:</label>
+                <input type="range" class="form-control-range w-100" id="months_input" min="0" max="12" step="1" value="0">
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <h4>Borrowed Amount</h4>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <label for="notional_out">Amount:</label>
+                <input type="number" class="form-control" id="notional_out" min="0" max="1000000" value="250000">
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <h4>Interest Rate</h4>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <label for="interest_out">Annual Interest Rate:</label>
+                <input type="number" class="form-control" id="interest_out" min="0.01" max="100" value="4">
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <label for="payment_output" class="h4">Monthly Payment:</label>
+                <input type="text" class="form-control" id="payment_output" readonly>
+            </div>
+        </div>
         
 
-        <h1 lass="text-center">Mortgage Payment Calculator</h1>
-      	<div class="row justify-content-center">
-      	<div class="col-md-12">
-      		<form id="formId" onSubmit="processInput(); return false;">
-	      		<fieldset>
-	      			<div class="form-group">
-								<label for="balance">Outstanding Balance (1000-1000000):</label>
-								<input class="form-control" type="text" inputmode="numeric" pattern="\d*" id="balance" name="balance" value="250000"/>
-							</div>
-			
-							<div class="form-group">
-							<label for="years">Full Years remaining (1-25):</label>
-							<input class="form-control" type="number" id="years" name="years" min="1" max="25" value="20">
-							</div>
-
-							<div class="form-group">
-							<label for="months">Months remaining (0-12):</label>
-							<input class="form-control" type="number" id="months" name="months" min="0" max="12" value="0">
-							</div>
-
-							<div class="form-group">
-							<label for="interest">Annual Interest Rate (0.01-100) %:</label>
-							<input class="form-control" type="number" id="interest" name="interest" min="0.01" max="100" value="4">
-							</div>
-	      		</fieldset>
-	      		<fieldset>
-	        		<button type="button" id="button" onclick="processInput()" class="btn btn-primary">Submit</button>
-	        		<button type="button" id ="reset" onclick="resetForm()" class="btn btn-default"/>Reset</button>
-	      		</fieldset>
-	     		</form>	
-	     	</div>
-	     	<div class="row">
-	     		<div class="col-md-12">
-	     			<div class="card text-white bg-primary">
-                    <div class="card-body">
-                        <h5 class="card-title">Monthly Mortgage Payment:</h5>
-                        <h3 class="card-text" id="results"></h3>
-                    </div>
+            <!-- Explain section -->
+            <hr />
+            <h2 class="mb-4">Monthly Mortgage Payment Formula</h2>
+            <div class="row">
+                <p>
+                    A mortgage payment is calculated to be the number of equal monthly payments that will pay off an amount owed in the time required. This would be a straighfoward division ( money owed / number of months ) if it wasn't for interest payments which are increasing the amount owed each month whilst the payments are reducing the amount owed.    
+                </p>
             </div>
-          </div>
-        </div>
-        </div>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-6">
+                    
+                    <div class="text-center">
+                        <p>
+                            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                <mstyle mathsize="1.2em">
+                                <mrow>
+                                <mi>Alcohol (in ml)</mi>
+                                <mo>=</mo>
+                                <mi>Percent</mi>
+                                <mo>*</mo> 
+                                <mi>Volume (in ml)</mi>
+                                </mrow>
+                                </mstyle>
+                            </math>
+                        </p>
+                        <p>
+                            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                <mstyle mathsize="1.2em">
+                                <mrow>
+                                <mi>Alcohol Units</mi>
+                                <mo>=</mo>
+                                <mi>Alcohol (in ml)</mi>
+                                <mo>/</mo> 
+                                <mi>10 (ml per unit)</mi>
+                                </mrow>
+                                </mstyle>
+                            </math>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Example</h3>
+            <div class="row">
+                <p>
+                    For a pint (568ml) of strong beer (5.5%) the amount of alcohol is 31.24 ml or 3.12 units.    
+                </p>
+            </div>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <p>
+                            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                <mstyle mathsize="1.2em">
+                                <mrow>
+                                <mi>31.24 ml alcohol</mi>
+                                <mo>=</mo>
+                                <mi>0.055</mi>
+                                <mo>*</mo> 
+                                <mi>568 ml</mi>
+                                </mrow>
+                                </mstyle>
+                            </math>
+                        </p>
+                        <p>
+                            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                <mstyle mathsize="1.2em">
+                                <mrow>
+                                <mi>3.12 Units</mi>
+                                <mo>=</mo>
+                                <mi>31.24 ml</mi>
+                                <mo>/</mo> 
+                                <mi>10 ml per unit</mi>
+                                </mrow>
+                                </mstyle>
+                            </math>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
     </main>
 </div>
 
 <script type="text/javascript">
+
+    // Get the elements
+   var years_out = document.getElementById("years_out");
+   var years_input = document.getElementById("years_input");
+   var months_out = document.getElementById("months_out");
+   var months_input = document.getElementById("months_input");
+   var notional_out = document.getElementById("notional_out");
+   var interest_out = document.getElementById("interest_out");
+   
+      // Display initial slider value
+   years_out.value = years_input.value;
+   months_out.value = months_input.value;
 	
-    function processInput() {
+    function calc_payment() {
         
-        var balance = parseFloat(document.getElementById('balance').value);
-        var years = parseInt(document.getElementById('years').value,10);
-        var months = parseInt(document.getElementById('months').value,10);
-        var interest = parseFloat(document.getElementById('interest').value);
+        var balance = parseFloat(document.getElementById('notional_out').value);
+        var years = parseInt(document.getElementById('years_out').value,10);
+        var months = parseInt(document.getElementById('months_out').value,10);
+        var interest = parseFloat(document.getElementById('interest_out').value);
     
         var period = (years * 12) + months;
         var im = (interest / 100) /12;
@@ -96,21 +211,74 @@
     
         var output = Math.round((pmt + Number.EPSILON) * 100) / 100;
     
-        // console.log(balance, period, i, ni, pmt, output);
+        // console.log(balance, period, im, ni, pmt, output);
     
-        document.getElementById('results').innerHTML = output;
-    
-    }
-    function resetForm(){
-    
-            document.getElementById('balance').value = "250000";
-            document.getElementById('years').value = "20";
-            document.getElementById('months').value = "0";
-            document.getElementById('interest').value = "4";
-            document.getElementById('results').innerHTML = "";
+        document.getElementById('payment_output').value = output;
     
     }
+
+    function debounce(callback, wait) {
+        let timeout;
+        return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(function () { callback.apply(this, args); }, wait);
+        };
+        }
+
+    // interest_out.addEventListener('keydown', debounce( () => {
+    // // code you would like to run 1000ms after the keyup event has stopped firing
+    // // further keyup events reset the timer, as expected
+
+    //         console.log(this.value);
+    //         if(this.value < 0.01){
+    //             this.value=0.01;
+    //         }
+
+    //         calc_payment();
+
+    // }, 1000))
+
+    //    interest_out.oninput = debounce( () => {
+    // // code you would like to run 1000ms after the keyup event has stopped firing
+    // // further keyup events reset the timer, as expected
+
+    //         console.log(this.value);
+    //         if(this.value < 0.01){
+    //             this.value=0.01;
+    //         }
+
+    //         calc_payment();
+
+    // }, 1000);
+
+    //update slides
+    years_input.oninput = function() {
+       years_out.value = this.value;
+
+       calc_payment();
+   };
+
+    months_input.oninput = function() {
+       months_out.value = this.value;
+
+       calc_payment();
+   };
+
+   notional_out.oninput = function() {
+       calc_payment();
+   };
+
+   interest_out.oninput = function() {
+
+        // if(this.value < 0.01){
+        //     this.value=0.01;
+        // }
+
+       calc_payment();
+   };
     
+   calc_payment();
+
     </script>
 <!-- Bootstrap JS (Optional if you need JS functionality) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

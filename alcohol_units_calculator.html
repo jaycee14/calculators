@@ -45,13 +45,14 @@
             </div>
 
             <div class="row">
-                <div class="col-md-10">
-                    <label for="beer_percent">Drink Percentage (%):</label>
-                    <input type="range" class="form-control-range w-100" id="beer_percent" min="0.5" max="45" step="0.1" value="5">
-                </div>
+                
                 <div class="col-md-2">
                     <label for="beer_percentage_out">Percentage:</label>
                     <input type="text" class="form-control" id="beer_percentage_out" readonly>
+                </div>
+                <div class="col-md-10">
+                    <label for="beer_percent">Drink Percentage (%):</label>
+                    <input type="range" class="form-control-range w-100" id="beer_percent" min="0.5" max="45" step="0.1" value="5">
                 </div>
             </div>
 
@@ -76,13 +77,13 @@
             </div>
             <!-- Slider -->
             <div class="row">
-            <div class="col-md-10">
-                <label for="beer_volume">Drink Volume (ml):</label>
-                <input type="range" class="form-control-range w-100" id="beer_volume" min="25" max="1000" step="1" value="568">
-            </div>
             <div class="col-md-2">
                 <label for="beer_volume_out">Volume:</label>
                 <input type="text" class="form-control" id="beer_volume_out" readonly>
+            </div>
+            <div class="col-md-10">
+                <label for="beer_volume">Drink Volume (ml):</label>
+                <input type="range" class="form-control-range w-100" id="beer_volume" min="25" max="1000" step="1" value="568">
             </div>
             </div>
 
@@ -136,7 +137,7 @@
 
             <!-- Explain section -->
             <hr />
-            <h2 class="mb-4">Calculator Explanation</h2>
+            <h2 class="mb-4">Alcohol Units Formula</h2>
             <div class="row">
                 <p>
                     The amount of alcohol contained in a drink is calculated by multiplying the percentage of alcohol (using a percentage value expressed as a decimal - a value betwen 0 and 1) 
