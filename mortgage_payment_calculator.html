@@ -17,6 +17,10 @@
             padding: 15px;
         }
 
+        math {
+            font-size: 1.2em; /* Apply the desired styling to all MathML elements */
+        }
+
     </style>
 </head>
 <body>
@@ -85,7 +89,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <label for="interest_out">Annual Interest Rate:</label>
+                <label for="interest_out">Annual Interest Rate (percentage):</label>
                 <input type="number" class="form-control" id="interest_out" min="0.01" max="100" value="4">
             </div>
         </div>
@@ -105,6 +109,9 @@
                 <p>
                     A mortgage payment is calculated to be the number of equal monthly payments that will pay off an amount owed in the time required. This would be a straighfoward division ( money owed / number of months ) if it wasn't for interest payments which are increasing the amount owed each month whilst the payments are reducing the amount owed.    
                 </p>
+                <p>
+                    To calculate the payments taking into account interest first we need the total number of periods we are interested in. For this calculator we calculate monthly (your bank likely calculates daily) so need the total number of months. We also need the annual interest rate expressed as a decimal value and converted to a monthly value.
+                </p>
             </div>
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-6">
@@ -112,71 +119,232 @@
                     <div class="text-center">
                         <p>
                             <math xmlns="http://www.w3.org/1998/Math/MathML">
-                                <mstyle mathsize="1.2em">
+                                
                                 <mrow>
-                                <mi>Alcohol (in ml)</mi>
+                                <mi>Total Monthly periods</mi>
                                 <mo>=</mo>
-                                <mi>Percent</mi>
+                                <mi>P</mi>
+                                <mo>=</mo>
+                                <mi>Number of full years</mi>
                                 <mo>*</mo> 
-                                <mi>Volume (in ml)</mi>
+                                <mi>12</mi>
+                                <mo>+</mo>
+                                <mi>Number of remaining months</mi>
                                 </mrow>
-                                </mstyle>
+                                
                             </math>
                         </p>
                         <p>
                             <math xmlns="http://www.w3.org/1998/Math/MathML">
-                                <mstyle mathsize="1.2em">
+                                
                                 <mrow>
-                                <mi>Alcohol Units</mi>
+                                <mi>Monthly interest rate (decimal)</mi>
                                 <mo>=</mo>
-                                <mi>Alcohol (in ml)</mi>
+                                <mi>m</mi>
+                                <mo>=</mo>
+                                <mo>(</mo>
+                                <mfrac>
+                                    <mrow>
+                                        <mi>Annual interest rate (percentage)</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>100</mn>
+                                    </mrow>
+                                </mfrac>
+                                <mo>)</mo>
                                 <mo>/</mo> 
-                                <mi>10 (ml per unit)</mi>
+                                <mn>12</mn>
                                 </mrow>
-                                </mstyle>
+                                
                             </math>
                         </p>
                     </div>
                 </div>
             </div>
 
+            <div class="row">
+                <p>
+                    From these values we can calculate the compound interest rate factor.
+                </p>
+            </div>
+
+            <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+               
+                <mrow>
+                  <mi>Compound interest rate factor</mi>
+                  <mo>=</mo>
+                  <mi>n</mi>
+                  <mo>=</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mn>1</mn>
+                    <mo>+</mo>
+                    <mi>m</mi>
+                    <mo>)</mo>
+                    <msup>
+                      <mo>&#8290;</mo>
+                      <mrow>
+                        <mi>P</mi>
+                      </mrow>
+                    </msup>
+                  </mrow>
+                </mrow>
+           
+              </math>
+
+              <div class="row">
+                <p>
+                    And using that and the total amount borrowed can work out the monthly payment amount.
+                </p>
+            </div>
+
+              <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+               
+                <!-- Calculation of pmt -->
+                <mrow>
+                  <mi>Monthly payment</mi>
+                  <mo>=</mo>
+                  <mrow>
+                    <mi>Total borrowed amount</mi>
+                    <mo>*</mo>
+                    <mo>(</mo>
+                    <mfrac>
+                      <mrow>
+                        <mi>m</mi>
+                        <mo>&#8290;</mo>
+                        <mo>*</mo>
+                        <mi>n</mi>
+                      </mrow>
+                      <mrow>
+                        <mi>n</mi>
+                        <mo>&#8290;</mo>
+                        <mo>-</mo>
+                        <mn>1</mn>
+                      </mrow>
+                    </mfrac>
+                    </mrow>
+                    <mo>)</mo>
+                  </mrow>
+                
+              </math>
+              
+
+
             <h3>Example</h3>
             <div class="row">
                 <p>
-                    For a pint (568ml) of strong beer (5.5%) the amount of alcohol is 31.24 ml or 3.12 units.    
+                    For a mortgage rate of 4% over 25 years for a borrowed amount of 250,000 the payment would be:    
                 </p>
             </div>
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-6">
+                    
                     <div class="text-center">
                         <p>
                             <math xmlns="http://www.w3.org/1998/Math/MathML">
-                                <mstyle mathsize="1.2em">
+                                
                                 <mrow>
-                                <mi>31.24 ml alcohol</mi>
+                                <mi>P</mi>
                                 <mo>=</mo>
-                                <mi>0.055</mi>
+                                <mi>25</mi>
                                 <mo>*</mo> 
-                                <mi>568 ml</mi>
+                                <mi>12</mi>
+                                <mo>+</mo>
+                                <mi>0</mi>
+                                <mo>=</mo>
+                                <mn>300</mn>
                                 </mrow>
-                                </mstyle>
+                                
                             </math>
                         </p>
                         <p>
                             <math xmlns="http://www.w3.org/1998/Math/MathML">
-                                <mstyle mathsize="1.2em">
+                                
                                 <mrow>
-                                <mi>3.12 Units</mi>
+                                <mi>m</mi>
                                 <mo>=</mo>
-                                <mi>31.24 ml</mi>
+                                <mo>(</mo>
+                                <mfrac>
+                                    <mrow>
+                                        <mn>4</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>100</mn>
+                                    </mrow>
+                                </mfrac>
+                                <mo>)</mo>
                                 <mo>/</mo> 
-                                <mi>10 ml per unit</mi>
+                                <mn>12</mn>
+                                <mo>=</mo>
+                                <mn>0.0033</mn>
                                 </mrow>
-                                </mstyle>
+                                
                             </math>
                         </p>
                     </div>
                 </div>
+            </div>
+
+            <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+               
+                <mrow>
+                  <mi>n</mi>
+                  <mo>=</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mn>1</mn>
+                    <mo>+</mo>
+                    <mn>0.0033</mn>
+                    <mo>)</mo>
+                    <msup>
+                      <mo>&#8290;</mo>
+                      <mrow>
+                        <mn>300</mn>
+                      </mrow>
+                    </msup>
+                  </mrow>
+                  <mo>=</mo>
+                  <mn>2.6869</mn>
+                </mrow>
+           
+              </math>
+
+              <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+               
+                <!-- Calculation of pmt -->
+                <mrow>
+                  <mi>Monthly payment</mi>
+                  <mo>=</mo>
+                  <mrow>
+                    <mn>250000</mn>
+                    <mo>*</mo>
+                    <mo>(</mo>
+                    <mfrac>
+                      <mrow>
+                        <mn>0.0033</mn>
+                        <mo>&#8290;</mo>
+                        <mo>*</mo>
+                        <mn>2.6869</mn>
+                      </mrow>
+                      <mrow>
+                        <mn>2.6869</mn>
+                        <mo>&#8290;</mo>
+                        <mo>-</mo>
+                        <mn>1</mn>
+                      </mrow>
+                    </mfrac>
+                    </mrow>
+                    <mo>)</mo>
+                    <mo>=</mo>
+                    <mn>1,314.06</mn>
+                  </mrow>
+                
+              </math>
+
+              <div class="row">
+                <p>
+                    Please note the calculator gives a value of 1,319.59 as it is using higher precision figures and not rounding them for the example.    
+                </p>
             </div>
 
     </main>
@@ -211,7 +379,7 @@
     
         var output = Math.round((pmt + Number.EPSILON) * 100) / 100;
     
-        // console.log(balance, period, im, ni, pmt, output);
+        console.log(balance, period, im, ni, pmt, output);
     
         document.getElementById('payment_output').value = output;
     
