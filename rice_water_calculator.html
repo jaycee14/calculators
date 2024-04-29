@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="description">
+    <title>Rice Water Calculator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for fixed navbar, scrolling sidebar, and web cards */
+        body {
+            padding-top: 56px; /* Adjust the padding to accommodate the fixed navbar height */
+        }
+
+        main {
+            padding: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <a href="index.html">
+            <span class="navbar-brand mb-0 h1">Calculators</span>
+        </a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <!-- Main Content -->
+    <main>
+        
+        <div class="row">
+            <h1 class="mb-4">Rice Water Calculator</h1>
+            <p>
+                Quickly calculate the monthly payment amount based on the amount borrowed, interest rate and time.
+            </p>
+        </div>
+
+        
+        <div class="row mt-4">
+            <div class="col-3">
+                <label for="grams">Grams:</label>
+                <input type="number" id="grams" name="grams" min="10" max="1000" class="clearable"/>
+            </div>
+            <div class="col-3">
+                <label for="grams">Ounces:</label>
+                <input type="number" id="ounces" name="ounces" min="10" max="1000" class="clearable"/>
+            </div>
+            <div class="col-3">
+                <label for="grams">Cups:</label>
+                <input type="number" id="cups" name="cups" min="10" max="1000" class="clearable"/>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-primary btn-block" onclick="clear()">Clear</button>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <label for="water_ratio">Water:Rice Ratio</label>
+                <input type="number" id="water_ratio" name="water_ratio" min="1" max="10" value="2"/>
+            </div>
+    
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-4">
+                <label for="water_ml">Water (ml):</label>
+                <input type="text" class="form-control" id="water_ml" readonly>
+            </div>
+            <div class="col-4">
+                <label for="water_floz">Water (floz):</label>
+                <input type="text" class="form-control" id="water_floz" readonly>
+            </div>
+            <div class="col-4">
+                <label for="water_cup">Water (cup):</label>
+                <input type="text" class="form-control" id="water_cup" readonly>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <button id='submitButton' class="btn btn-danger btn-block">Calculate</button>
+            </div>
+        </div>
+    
+
+    </main>
+</div>
+
+
+<script>
+
+    // Get all elements with the class 'clearable'
+var clearableInputs = document.querySelectorAll('.clearable');
+
+    // Add event listener to each clearable input
+    clearableInputs.forEach(function(input) {
+        input.addEventListener('input', function() {
+            // Clear the values of other clearable inputs
+            clearableInputs.forEach(function(otherInput) {
+            if (otherInput !== input) {
+                otherInput.value = '';
+            }
+            });
+        });
+    });
+
+
+// Add event listener to the submit button
+document.getElementById('submitButton').addEventListener('click', function() {
+  // Find the currently populated input
+  var populatedInput = Array.from(clearableInputs).find(function(input) {
+    return input.value !== '';
+  });
+
+  if (populatedInput) {
+    // Get the value and id of the populated input
+    var populatedValue = populatedInput.value;
+    var populatedId = populatedInput.id;
+
+    // Do something with the values
+    alert('Populated Input ID: ' + populatedId + ', Value: ' + populatedValue);
+  } else {
+    alert('No input is populated.');
+  }
+});
+
+function ounces_to_grams(ounces){
+    return ounces * 28.34952;
+}
+
+</script>
+
+<!-- Bootstrap JS (Optional if you need JS functionality) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>
+
+</script>
+</body>
+</html>
