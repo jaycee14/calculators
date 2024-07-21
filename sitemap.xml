@@ -2,26 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <!-- Homepage -->
-    <!-- https://www.google.com/ping?sitemap=https://web-calculators.pages.dev/sitemap.xml -->
+    <!-- https://www.google.com/ping?sitemap=https://easycalcguru.com/sitemap.xml -->
     
     <url>
-        <loc>https://web-calculators.pages.dev/index.html</loc>
-        <lastmod>2024-01-18</lastmod>
+        <loc>https://easycalcguru.com/index.html</loc>
+        <lastmod>2024-07-21</lastmod>
     </url>
 
     <url>
-        <loc>https://web-calculators.pages.dev/alcohol_units_calculator.html</loc>
-        <lastmod>2024-01-18</lastmod>
+        <loc>https://easycalcguru.com/alcohol_units_calculator.html</loc>
+        <lastmod>2024-07-21</lastmod>
     </url>
 
     <url>
-        <loc>https://web-calculators.pages.dev/blog.html</loc>
-        <lastmod>2024-01-18</lastmod>
+        <loc>https://easycalcguru.com/blog.html</loc>
+        <lastmod>2024-07-21</lastmod>
     </url>
 
     <url>
-        <loc>https://web-calculators.pages.dev/privacy.html</loc>
-        <lastmod>22024-01-18</lastmod>
+        <loc>https://easycalcguru.com/privacy.html</loc>
+        <lastmod>2024-07-21</lastmod>
+    </url>
+
+    <url>
+        <loc>https://easycalcguru.com/rice_water_calculator.html</loc>
+        <lastmod>2024-07-21</lastmod>
+    </url>
+
+    <url>
+        <loc>https://easycalcguru.com/mortgage_payment_calculator.html</loc>
+        <lastmod>2024-07-21</lastmod>
     </url>
 
 </urlset>

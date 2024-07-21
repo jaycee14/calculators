@@ -24,45 +24,52 @@
 <nav class="navbar navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <a href="index.html">
-            <span class="navbar-brand mb-0 h1">Calculators</span>
+            <span class="navbar-brand mb-0 h1">easycalcguru.com</span>
         </a>
     </div>
 </nav>
 
-<div class="container mt-5">
+<div class="container-fluid">
     <!-- Main Content -->
     <main>
         
         <div class="row">
-            <h1 class="mb-4">Rice Water Calculator</h1>
+            <h1 class="mb-4">Rice to Water Cooking Calculator</h1>
             <p>
-                Quickly calculate the monthly payment amount based on the amount borrowed, interest rate and time.
+                Quickly calculate the amount of water to cook dry rice in. Be that in grams, ounces or US cups.
             </p>
         </div>
 
         
         <div class="row mt-4">
-            <div class="col-3">
+            <div class="col-4">
                 <label for="grams">Grams:</label>
                 <input type="number" id="grams" name="grams" min="10" max="1000" class="clearable"/>
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 <label for="grams">Ounces:</label>
                 <input type="number" id="ounces" name="ounces" min="10" max="1000" class="clearable"/>
             </div>
-            <div class="col-3">
-                <label for="grams">Cups:</label>
+            <div class="col-4">
+                <label for="grams">US Cups:</label>
                 <input type="number" id="cups" name="cups" min="10" max="1000" class="clearable"/>
             </div>
-            <div class="col-3">
-                <button class="btn btn-primary btn-block" onclick="clear()">Clear</button>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <button id='clearButton' class="btn btn-primary w-100">Clear</button>
             </div>
+        </div>
+
+        <div class="col-3">
+            
         </div>
         
         <div class="row mt-4">
             <div class="col-12">
-                <label for="water_ratio">Water:Rice Ratio</label>
-                <input type="number" id="water_ratio" name="water_ratio" min="1" max="10" value="2"/>
+                <label for="water_ratio">Water : Rice Ratio</label>
+                <input type="number" id="water_ratio" name="water_ratio" min="1" max="10" value="2.5"/>
             </div>
     
         </div>
@@ -84,9 +91,104 @@
         
         <div class="row mt-4">
             <div class="col-12">
-                <button id='submitButton' class="btn btn-danger btn-block">Calculate</button>
+                <button id='submitButton' class="btn btn-danger w-100">Calculate</button>
             </div>
         </div>
+
+        <!-- Explain section -->
+        <hr />
+        <h2 class="mb-4">Rice to Water Formula</h2>
+        <div class="row">
+            <p>
+                This amount of water is calculated by multiplying the weight of the rice by the ratio, in the default case this is 2.5 times, to get the amount of water needed.
+            </p>
+            <p>
+                It becomes a bit more complicated by the other units, most noteably when using cups - which are a measure of volume not weight - however a value of 190 grams per US cup looks to be an accepted value.
+            </p>
+        </div>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-6">
+                
+                <div class="text-center">
+                    <p>
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mstyle mathsize="1.2em">
+                            <mrow>
+                            <mi>Water (ml)</mi>
+                            <mo>=</mo>
+                            <mi>Weight (grams)</mi>
+                            <mo>&#xD7;</mo> 
+                            <mi>Ratio</mi>
+                            </mrow>
+                            </mstyle>
+                        </math>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <h3>Examples</h3>
+        <div class="row">
+            <p>
+                For 180 grams of rice and a ratio of 2.5 the water needed is 450 milliliters.    
+            </p>
+        </div>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <p>
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mstyle mathsize="1.2em">
+                            <mrow>
+                            <mi>450 ml</mi>
+                            <mo>=</mo>
+                            <mi>180 g</mi>
+                            <mo>&#xD7;</mo> 
+                            <mi>2.5</mi>
+                            </mrow>
+                            </mstyle>
+                        </math>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <p>
+                For 2 US cups of rice and a ratio of 2.5 the water needed is 4 US cups (950ml) calculate by weight.    
+            </p>
+        </div>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <p>
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mstyle mathsize="1.2em">
+                            <mrow>
+                            <mi>4 US cups (950 ml)</mi>
+                            <mo linebreak='newline' linebreakstyle='after'>=</mo>
+                            <mi>2 US cups</mi>
+                            <mo>&#xD7;</mo> 
+                            <mi>190 g per cup</mi>
+                            <mo>&#xD7;</mo>
+                            <mi>2.5</mi>
+                            </mrow>
+                            </mstyle>
+                        </math>
+                    </p>
+                </div>
+            </div>
+        </div>
+    <hr>
+    <h2 class="mb-4">Background</h2>
+    <p>
+        Switching to microwave cooked rice has been one of the best recent cooking discoveries I've made but I was frequently looking for the instructions to work out how much water was needed - hence this calculator.
+    </p>
+    <p>
+        A rice water calculator is an essential tool for cooking, ensuring perfect rice every time by accurately determining the optimal water-to-rice ratio. 
+        This calculator helps eliminate the guesswork and inconsistencies in cooking rice. By inputting the quantity of rice, the calculator provides precise measurements, leading to consistently 
+        fluffy and well-cooked rice. This tool is particularly valuable for home cooks and chefs alike, enhancing the quality of dishes and reducing 
+        waste from improperly cooked rice.
+    </p>
     
 
     </main>
@@ -94,21 +196,28 @@
 
 
 <script>
+document.getElementById('clearButton').addEventListener('click',clear);
+
+
 
     // Get all elements with the class 'clearable'
 var clearableInputs = document.querySelectorAll('.clearable');
 
-    // Add event listener to each clearable input
-    clearableInputs.forEach(function(input) {
-        input.addEventListener('input', function() {
-            // Clear the values of other clearable inputs
-            clearableInputs.forEach(function(otherInput) {
-            if (otherInput !== input) {
-                otherInput.value = '';
-            }
-            });
+var water_ml_output = document.getElementById('water_ml');
+var water_floz_output = document.getElementById('water_floz');
+var water_cup_output = document.getElementById('water_cup');
+
+// Add event listener to each clearable input
+clearableInputs.forEach(function(input) {
+    input.addEventListener('input', function() {
+        // Clear the values of other clearable inputs
+        clearableInputs.forEach(function(otherInput) {
+        if (otherInput !== input) {
+            otherInput.value = '';
+        }
         });
     });
+});
 
 
 // Add event listener to the submit button
@@ -122,16 +231,91 @@ document.getElementById('submitButton').addEventListener('click', function() {
     // Get the value and id of the populated input
     var populatedValue = populatedInput.value;
     var populatedId = populatedInput.id;
+    const ratio = parseFloat(document.getElementById('water_ratio').value);
 
     // Do something with the values
-    alert('Populated Input ID: ' + populatedId + ', Value: ' + populatedValue);
+    // alert('Populated Input ID: ' + populatedId + ', Value: ' + populatedValue);
+    console.log('Populated Input ID: ' + populatedId + ', Value: ' + populatedValue);
+
+
+    if(populatedId=='grams'){
+        let ml = calc_water_amounts_grams(populatedValue,ratio);
+        water_ml_output.value = round(ml,0);
+        water_floz_output.value = round(ml_to_floz(ml),1);
+        water_cup_output.value = round(ml_to_cups(ml),1);
+
+    }else if (populatedId=='ounces'){
+        let val_grams = ounces_to_grams(populatedValue);
+        let ml = calc_water_amounts_grams(val_grams,ratio);
+
+        water_ml_output.value = round(ml,0);
+
+        water_floz_output.value = round(ml_to_floz(ml),1);
+        water_cup_output.value = ml_to_cups(ml);
+
+    } else if (populatedId=='cups'){
+        let val_grams = cups_to_grams(populatedValue);
+        let ml = calc_water_amounts_grams(val_grams,ratio);
+
+        water_ml_output.value = round(ml,0);
+        water_floz_output.value = round(ml_to_floz(ml),1);
+        water_cup_output.value = round(ml_to_cups(ml),1);
+    }
+
   } else {
     alert('No input is populated.');
   }
 });
 
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function round(value, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+}
+
+function calc_water_amounts_grams(grams, ratio){
+    return grams * ratio;
+}
+
+function ml_to_floz(ml){
+    return ml / 28.34952;
+}
+
+function ml_to_cups(ml){
+    return ml  / 236.6;
+}
+
 function ounces_to_grams(ounces){
     return ounces * 28.34952;
+}
+
+function cups_to_grams(cups){
+    return cups * 190;
+}
+
+// function grams_to_cups(grams){
+//     return grams / (284.131 * 1.452);
+// }
+
+// function grams_to_ounces(grams){
+//     return grams / 28.34952;
+// }
+
+// function ounces_to_cups(ounces){
+//     return grams_to_cups(ounces_to_grams(ounces));
+// }
+
+// function cups_to_ounces(cups){
+//     return grams_to_ounces(cups_to_grams(cups));
+// }
+
+function clear(){
+    clearableInputs.forEach(function(otherInput) {
+            otherInput.value = '';
+        });
 }
 
 </script>

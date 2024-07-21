@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="description">
+    <title>Cocktail Alcohol Calculator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for fixed navbar, scrolling sidebar, and web cards */
+        body {
+            padding-top: 56px; /* Adjust the padding to accommodate the fixed navbar height */
+        }
+
+        main {
+            padding: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <a href="index.html">
+            <span class="navbar-brand mb-0 h1">easycalcguru.com</span>
+        </a>
+    </div>
+</nav>
+
+<div class="container-fluid mt-5">
+    <!-- Main Content -->
+    <main>
+        <div class="row">
+            <h1 class="mb-4">Alcohol Units Calculator</h1>
+            <p>
+                Quickly calculate the amount of alcohol units a cocktail contains by adding different ingredients with their respective percentages and volumes.
+            </p>
+        </div>
+
+        <div id="ingredients-container">
+            <div class="row mt-4 ingredient">
+                <div class="col-md-4">
+                    <label for="ingredient_name_0">Ingredient Name:</label>
+                    <input type="text" class="form-control" id="ingredient_name_0" placeholder="e.g., Vodka">
+                </div>
+                <div class="col-md-2">
+                    <label for="ingredient_percentage_0">Percentage (%):</label>
+                    <input type="number" class="form-control" id="ingredient_percentage_0" min="0.5" max="100" step="0.1" value="40">
+                </div>
+                <div class="col-md-2">
+                    <label for="ingredient_volume_0">Volume (ml):</label>
+                    <input type="number" class="form-control" id="ingredient_volume_0" min="1" max="1000" step="1" value="50">
+                </div>
+                <div class="col-md-2">
+                    <label for="ingredient_alcohol_0">Alcohol (ml):</label>
+                    <input type="text" class="form-control" id="ingredient_alcohol_0" readonly>
+                </div>
+                <div class="col-md-2">
+                    <label for="ingredient_units_0">Units:</label>
+                    <input type="text" class="form-control" id="ingredient_units_0" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-success" id="add-ingredient">Add Ingredient</button>
+            </div>
+        </div>
+
+        <!-- Output Boxes -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <label for="total_alcohol_output" class="h4">Total Alcohol (ml):</label>
+                <input type="text" class="form-control" id="total_alcohol_output" readonly>
+            </div>
+            <div class="col-md-6">
+                <label for="total_units_output" class="h4">Total Units:</label>
+                <input type="text" class="form-control" id="total_units_output" readonly>
+            </div>
+        </div>
+
+        <!-- Explain section -->
+        <hr />
+        <h2 class="mb-4">Alcohol Units Formula</h2>
+        <div class="row">
+            <p>
+                The amount of alcohol contained in a drink is calculated by multiplying the percentage of alcohol (using a percentage value expressed as a decimal - a value between 0 and 1) 
+                with the volume measure in millilitres. This is then divided by 10 to give the amount in units.
+            </p>
+        </div>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <p>
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mstyle mathsize="1.2em">
+                            <mrow>
+                            <mi>Alcohol (in ml)</mi>
+                            <mo>=</mo>
+                            <mi>Percent (as decimal)</mi>
+                            <mo>*</mo> 
+                            <mi>Volume (in ml)</mi>
+                            </mrow>
+                            </mstyle>
+                        </math>
+                    </p>
+                    <p>
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mstyle mathsize="1.2em">
+                            <mrow>
+                            <mi>Alcohol Units</mi>
+                            <mo>=</mo>
+                            <mi>Alcohol (in ml)</mi>
+                            <mo>/</mo> 
+                            <mi>10 (ml per unit)</mi>
+                            </mrow>
+                            </mstyle>
+                        </math>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <h3>Example</h3>
+        <div class="row">
+            <p>
+                For a cocktail with 50ml of vodka (40%) and 100ml of orange juice (0%), the total alcohol is 20ml or 2 units.
+            </p>
+        </div>
+
+        <hr>
+        <h2 class="mb-4">Background</h2>
+        <p>
+            In today's world, where socializing often revolves around drinks it's easy for our alcohol consumption to creep up without us even realising it.
+            With concerns over health and safety, understanding just how much alcohol we're consuming has become increasingly important. 
+        </p>
+        <p>
+            In many countries, including the UK where the NHS (National Health Service) provides guidelines, alcohol is measured in units. One unit is equivalent to 10 milliliters or 8 grams of pure alcohol. 
+            The idea is to provide a standard measure that allows individuals to gauge how much alcohol they're consuming regardless of the type of beverage.
+        </p>
+        <p> 
+            Many health organizations, including the NHS, provide guidelines on safe alcohol consumption. For instance, in the UK, it's recommended that both men and
+            women do not regularly drink more than 14 units of alcohol per week, spreading consumption evenly over several days. This advice is not just about avoiding
+            short-term risks like intoxication; it's also aimed at reducing the risk of long-term health issues such as liver disease, certain cancers, and heart problems.
+        </p>
+    </main>
+
+</div>
+
+<!-- Bootstrap JS (Optional if you need JS functionality) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script>
+    // Function to calculate alcohol and units for an ingredient
+    function calculateAlcoholForIngredient(index) {
+        const percentage = document.getElementById(`ingredient_percentage_${index}`).value;
+        const volume = document.getElementById(`ingredient_volume_${index}`).value;
+        const alcohol = volume * (percentage / 100);
+        document.getElementById(`ingredient_alcohol_${index}`).value = Math.round((alcohol + Number.EPSILON) * 100) / 100;
+        const units = alcohol / 10;
+        document.getElementById(`ingredient_units_${index}`).value = Math.round((units + Number.EPSILON) * 100) / 100;
+    }
+
+    // Function to update the total alcohol and units
+    function updateTotals() {
+        let totalAlcohol = 0;
+        let totalUnits = 0;
+        const ingredients = document.querySelectorAll('.ingredient');
+        ingredients.forEach((ingredient, index) => {
+            const alcohol = parseFloat(document.getElementById(`ingredient_alcohol_${index}`).value) || 0;
+            const units = parseFloat(document.getElementById(`ingredient_units_${index}`).value) || 0;
+            totalAlcohol += alcohol;
+            totalUnits += units;
+        });
+        document.getElementById('total_alcohol_output').value = Math.round((totalAlcohol + Number.EPSILON) * 100) / 100;
+        document.getElementById('total_units_output').value = Math.round((totalUnits + Number.EPSILON) * 100) / 100;
+    }
+
+    // Function to add a new ingredient input row
+    function addIngredient() {
+        const ingredientsContainer = document.getElementById('ingredients-container');
+        const newIndex = ingredientsContainer.children.length;
+        const newIngredient = document.createElement('div');
+        newIngredient.className = 'row mt-4 ingredient';
+        newIngredient.innerHTML = `
+            <div class="col-md-4">
+                <label for="ingredient_name_${newIndex}">Ingredient Name:</label>
+                <input type="text" class="form-control" id="ingredient_name_${newIndex}" placeholder="e.g., Vodka">
+            </div>
+            <div class="col-md-2">
+                <label for="ingredient_percentage_${newIndex}">Percentage (%):</label>
+                <input type="number" class="form-control" id="ingredient_percentage_${newIndex}" min="0.5" max="100" step="0.1" value="0">
+            </div>
+            <div class="col-md-2">
+                <label for="ingredient_volume_${newIndex}">Volume (ml):</label>
+                <input type="number" class="form-control" id="ingredient_volume_${newIndex}" min="1" max="1000" step="1" value="0">
+            </div>
+            <div class="col-md-2">
+                <label for="ingredient_alcohol_${newIndex}">Alcohol (ml):</label>
+                <input type="text" class="form-control" id="ingredient_alcohol_${newIndex}" readonly>
+            </div>
+            <div class="col-md-2">
+                <label for="ingredient_units_${newIndex}">Units:</label>
+                <input type="text" class="form-control" id="ingredient_units_${newIndex}" readonly>
+            </div>
+        `;
+        ingredientsContainer.appendChild(newIngredient);
+
+        // Attach event listeners to new inputs
+        document.getElementById(`ingredient_percentage_${newIndex}`).addEventListener('input', () => {
+            calculateAlcoholForIngredient(newIndex);
+            updateTotals();
+        });
+        document.getElementById(`ingredient_volume_${newIndex}`).addEventListener('input', () => {
+            calculateAlcoholForIngredient(newIndex);
+            updateTotals();
+        });
+    }
+
+    // Initialize event listeners for the first ingredient inputs
+    document.getElementById('ingredient_percentage_0').addEventListener('input', () => {
+        calculateAlcoholForIngredient(0);
+        updateTotals();
+    });
+    document.getElementById('ingredient_volume_0').addEventListener('input', () => {
+        calculateAlcoholForIngredient(0);
+        updateTotals();
+    });
+
+    // Add ingredient button event listener
+    document.getElementById('add-ingredient').addEventListener('click', addIngredient);
+
+    // Initial calculation for the first ingredient
+    calculateAlcoholForIngredient(0);
+    updateTotals();
+</script>
+
+</body>
+</html>
