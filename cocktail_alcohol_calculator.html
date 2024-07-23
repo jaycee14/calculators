@@ -33,9 +33,12 @@
     <!-- Main Content -->
     <main>
         <div class="row">
-            <h1 class="mb-4">Alcohol Units Calculator</h1>
+            <h1 class="mb-4">Cocktail Alcohol Units Calculator</h1>
             <p>
-                Quickly calculate the amount of alcohol units a cocktail contains by adding different ingredients with their respective percentages and volumes.
+                When watching your alcohol intake it can be a bit tricky to work out the alcohol in a cocktails due to their many ingredients.
+            </p>
+            <p> 
+                Using this calculator quickly work out the amount of alcohol, and number of units, a cocktail contains by adding different ingredients with their respective percentages and volumes.
             </p>
         </div>
 
@@ -43,7 +46,13 @@
             <div class="row mt-4 ingredient">
                 <div class="col-md-4">
                     <label for="ingredient_name_0">Ingredient Name:</label>
-                    <input type="text" class="form-control" id="ingredient_name_0" placeholder="e.g., Vodka">
+                    <div class="input-group">
+                        <select class="form-select" id="ingredient_dropdown_0" onchange="updateIngredientName(0)">
+                            <option value="" disabled selected>Select an ingredient</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                        <input type="text" class="form-control" id="ingredient_name_0" placeholder="e.g., Vodka">
+                    </div>
                 </div>
                 <div class="col-md-2">
                     <label for="ingredient_percentage_0">Percentage (%):</label>
@@ -51,7 +60,7 @@
                 </div>
                 <div class="col-md-2">
                     <label for="ingredient_volume_0">Volume (ml):</label>
-                    <input type="number" class="form-control" id="ingredient_volume_0" min="1" max="1000" step="1" value="50">
+                    <input type="number" class="form-control" id="ingredient_volume_0" min="1" max="1000" step="1" value="25">
                 </div>
                 <div class="col-md-2">
                     <label for="ingredient_alcohol_0">Alcohol (ml):</label>
@@ -87,7 +96,7 @@
         <h2 class="mb-4">Alcohol Units Formula</h2>
         <div class="row">
             <p>
-                The amount of alcohol contained in a drink is calculated by multiplying the percentage of alcohol (using a percentage value expressed as a decimal - a value between 0 and 1) 
+                For each ingredient the amount of alcohol contained is calculated by multiplying the percentage of alcohol (using a percentage value expressed as a decimal - a value between 0 and 1) 
                 with the volume measure in millilitres. This is then divided by 10 to give the amount in units.
             </p>
         </div>
@@ -101,7 +110,7 @@
                             <mi>Alcohol (in ml)</mi>
                             <mo>=</mo>
                             <mi>Percent (as decimal)</mi>
-                            <mo>*</mo> 
+                            <mo>&#xD7;</mo> 
                             <mi>Volume (in ml)</mi>
                             </mrow>
                             </mstyle>
@@ -127,10 +136,45 @@
         <h3>Example</h3>
         <div class="row">
             <p>
-                For a cocktail with 50ml of vodka (40%) and 100ml of orange juice (0%), the total alcohol is 20ml or 2 units.
+                To make a classic Manhattan: Two measures (50ml) of whisky (40%), one measure (25ml) of sweet vermouth (18%) and a dash of bitters (which is ignored due to the tiny volume).
             </p>
-        </div>
-
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <p>
+                            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                <mstyle mathsize="1.2em">
+                                <mrow>
+                                <mi>24.5 ml alcohol</mi>
+                                <mo>=</mo>
+                                <mi>50 ml</mi>
+                                <mo>&#xD7;</mo> 
+                                <mi>0.4</mi>
+                                <mo>+</mo>
+                                <mi>25 ml</mi>
+                                <mo>&#xD7;</mo> 
+                                <mi>0.18</mi>
+                                </mrow>
+                                </mstyle>
+                            </math>
+                        </p>
+                        <p>
+                            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                <mstyle mathsize="1.2em">
+                                <mrow>
+                                <mi>2.45 Units</mi>
+                                <mo>=</mo>
+                                <mi>24.5 ml</mi>
+                                <mo>/</mo> 
+                                <mi>10 (ml per unit)</mi>
+                                </mrow>
+                                </mstyle>
+                            </math>
+                        </p>
+                    </div>
+                 </div>
+              </div>   
+        </div>   
         <hr>
         <h2 class="mb-4">Background</h2>
         <p>
@@ -155,6 +199,61 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
 <script>
+
+   var alcohol_list =[
+    {'name':'Vodka', 'percentage':40},
+    {'name':'Gin', 'percentage':40},
+    {'name':'Vermouth', 'percentage':18},
+    {'name':'Campari', 'percentage':25},
+    {'name':'Aperol', 'percentage':11},
+    {'name':'Prosecco', 'percentage':12},
+    { "name": "Whisky", "percentage": 40 },
+    { "name": "Rum", "percentage": 40 },
+    { "name": "Tequila", "percentage": 40 },
+    { "name": "Brandy", "percentage": 40 },
+    { "name": "Bourbon", "percentage": 40 },
+    { "name": "Absinthe", "percentage": 55 },
+    { "name": "Champagne", "percentage": 12 },
+    { "name": "Beer", "percentage": 5 },
+    { "name": "Wine", "percentage": 12 },
+    { "name": "Cognac", "percentage": 40 },
+    { "name": "Sake", "percentage": 15 },
+    { "name": "Port", "percentage": 20 },
+    { "name": "Sherry", "percentage": 18 },
+    { "name": "Triple Sec", "percentage": 30 }
+   ]; 
+
+   function populateDropdown(index) {
+        const dropdown = document.getElementById(`ingredient_dropdown_${index}`);
+
+        alcohol_list.forEach(ingredient => {
+            const option = document.createElement('option');
+            option.value = ingredient.name;
+            option.text = ingredient.name;
+            dropdown.appendChild(option);
+        });
+    }
+
+    function updateIngredientName(index) {
+            const dropdown = document.getElementById(`ingredient_dropdown_${index}`);
+            const textInput = document.getElementById(`ingredient_name_${index}`);
+            const percentage = document.getElementById(`ingredient_percentage_${index}`);
+            textInput.value = dropdown.value;
+
+            alcohol_list.every((v) => {
+                if (v.name == textInput.value) {
+                    
+                    percentage.value = v.percentage;
+                    return false; // Equivalent to a break
+                }
+                console.log(v.name)
+                return true; // Make sure you return true; otherwise, `every()` will stop
+            });
+
+            calculateAlcoholForIngredient(index);
+            updateTotals();
+        }
+
     // Function to calculate alcohol and units for an ingredient
     function calculateAlcoholForIngredient(index) {
         const percentage = document.getElementById(`ingredient_percentage_${index}`).value;
@@ -189,15 +288,20 @@
         newIngredient.innerHTML = `
             <div class="col-md-4">
                 <label for="ingredient_name_${newIndex}">Ingredient Name:</label>
-                <input type="text" class="form-control" id="ingredient_name_${newIndex}" placeholder="e.g., Vodka">
+                <div class="input-group">
+                        <select class="form-select" id="ingredient_dropdown_${newIndex}" onchange="updateIngredientName(${newIndex})">
+                            <option value="" disabled selected>Select an ingredient</option>
+                        </select>
+                        <input type="text" class="form-control" id="ingredient_name_${newIndex}" placeholder="e.g., Vodka">
+                    </div>
             </div>
             <div class="col-md-2">
                 <label for="ingredient_percentage_${newIndex}">Percentage (%):</label>
-                <input type="number" class="form-control" id="ingredient_percentage_${newIndex}" min="0.5" max="100" step="0.1" value="0">
+                <input type="number" class="form-control" id="ingredient_percentage_${newIndex}" min="0.5" max="100" step="0.1" value="40">
             </div>
             <div class="col-md-2">
                 <label for="ingredient_volume_${newIndex}">Volume (ml):</label>
-                <input type="number" class="form-control" id="ingredient_volume_${newIndex}" min="1" max="1000" step="1" value="0">
+                <input type="number" class="form-control" id="ingredient_volume_${newIndex}" min="1" max="1000" step="1" value="25">
             </div>
             <div class="col-md-2">
                 <label for="ingredient_alcohol_${newIndex}">Alcohol (ml):</label>
@@ -219,6 +323,8 @@
             calculateAlcoholForIngredient(newIndex);
             updateTotals();
         });
+
+        populateDropdown(newIndex);
     }
 
     // Initialize event listeners for the first ingredient inputs
@@ -235,8 +341,11 @@
     document.getElementById('add-ingredient').addEventListener('click', addIngredient);
 
     // Initial calculation for the first ingredient
+    populateDropdown(0);
     calculateAlcoholForIngredient(0);
     updateTotals();
+
+
 </script>
 
 </body>
