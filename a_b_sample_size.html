@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="description">
+    <title>A/B Sample Size Calculator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        main {
+            padding: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">easycalcguru.com</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-link" href="blog.html">Blog</a>
+            <a class="nav-link" href="privacy.html">Privacy</a>
+        </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <!-- Main Content -->
+    <main>
+        
+         <div class="row">
+            <h1 class="mb-4">A/B Testing Sample Size Calculator</h1>
+            <h6>
+                Calculate the number of trials needed to see a change of desired delta % from a baseline conversion %.
+            </h6>
+        </div>
+
+        
+        <div class="row mt-4">
+            <div class="col-6">
+                <label for="base">Baseline Conversion % (c):</label>
+                <input type="number" id="base" name="base" min="0" max="100" class="clearable"/>
+            </div>
+            <div class="col-6">
+                <label for="delta">Desired Delta % (d):</label>
+                <input type="number" id="delta" name="delta" min="0" max="100" class="clearable"/>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <button id='Ncalc' class="btn btn-danger w-100">Calculate</button>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <label for="trials">Number of Trials (N):</label>
+                <input type="text" class="form-control clearable" id="trials" readonly>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <h6>Calculate the delta % observable given a number of trials and a baseline conversion %.</h6>
+        </div>
+
+        
+        <div class="row mt-4">
+            <div class="col-6">
+                <label for="base2">Baseline Conversion % (c):</label>
+                <input type="number" id="base2" name="base2" min="0" max="100" class="clearable"/>
+            </div>
+            <div class="col-6">
+                <label for="trials2">Number of Trials (N):</label>
+                <input type="number" class="form-control clearable" id="trials2"  min="0" class="clearable"/>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <button id='Dcalc' class="btn btn-danger w-100">Calculate</button>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <label for="delta2">Observable Delta % (d):</label>
+                <input type="text" id="delta2" name="delta2" class="form-control clearable" readonly/>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <button id='clearButton' class="btn btn-primary w-100">Clear All</button>
+            </div>
+        </div>
+
+        <!-- Explain section -->
+        <hr />
+        <h2 class="mb-4">A/B Sample Size Formula</h2>
+        <div class="row">
+            <p>
+                There are two variations of the same formula here - rearranged in order to calculate the desired output: 
+                The number of trials required to observe a percentage change or to calculate the change (delta) that could be observed given the number of trials run.
+            </p>
+            <p>
+                Both at the 95% confidence level and 80% statistical power - which are industry standard levels.
+        </div>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <p>
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mstyle mathsize="1.2em">
+                            <mrow>
+                            <mi>N</mi>
+                            <mo>=</mo>
+                            <mi>16</mi>
+                            <mo>&#xD7;</mo>
+                            <mfrac>
+                                <mrow>
+                                    <mn>c</mn>
+                                    <mo>-</mo>
+                                    <mi>c</mi>
+                                    <msup>
+                                        <mo>&#8290;</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </msup>
+                                </mrow>
+                                <mrow>
+                                    <mi>d</mi>
+                                    <msup>
+                                        <mo>&#8290;</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </msup>
+                                </mrow>
+                            </mfrac>
+                            </mrow>
+                            </mstyle>
+                        </math>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+                <p>
+                    Or rearranged to give:
+                </p>
+        </div>
+
+        <div class="row justify-content-center align-items-center">
+        <div class="col-md-6">
+        <div class="text-center">
+            <p>
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mstyle mathsize="1.2em">
+                    <mrow>
+                    <mi>d</mi>
+                    <mo>=</mo>
+                    <mi>4</mi>
+                    <mo>&#xD7;</mo>
+                    <msqrt>
+                    <mfrac>
+                        <mrow>
+                            <mn>c</mn>
+                            <mo>-</mo>
+                            <mi>c</mi>
+                            <msup>
+                                <mo>&#8290;</mo>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </msup>
+                        </mrow>
+                        <mrow>
+                            <mi>N</mi>
+                        </mrow>
+                    </mfrac>
+                    </msqrt>
+                    </mrow>
+                    </mstyle>
+                </math>
+            </p>
+        </div>
+        </div>
+        </div>
+
+        <h3>Examples</h3>
+        <div class="row">
+            <p>
+                For a baseline conversion percentage of 4% and a desired delta percentage of 2% the number of trials needed is 1500.    
+            </p>
+        </div>
+              <div class="row justify-content-center align-items-center">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <p>
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mstyle mathsize="1.2em">
+                            <mrow>
+                            <mi>1500</mi>
+                            <mo>=</mo>
+                            <mi>16</mi>
+                            <mo>&#xD7;</mo>
+                            <mfrac>
+                                <mrow>
+                                    <mn>0.04</mn>
+                                    <mo>-</mo>
+                                    <mi>0.04</mi>
+                                    <msup>
+                                        <mo>&#8290;</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </msup>
+                                </mrow>
+                                <mrow>
+                                    <mi>0.02</mi>
+                                    <msup>
+                                        <mo>&#8290;</mo>
+                                        <mrow>
+                                            <mn>2</mn>
+                                        </mrow>
+                                    </msup>
+                                </mrow>
+                            </mfrac>
+                            </mrow>
+                            </mstyle>
+                        </math>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <p>
+                Whereas the change observable with 24000 trials and a base conversion of 2.8% would be 0.4%.     
+            </p>
+        </div>
+               <div class="row justify-content-center align-items-center">
+        <div class="col-md-6">
+        <div class="text-center">
+            <p>
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mstyle mathsize="1.2em">
+                    <mrow>
+                    <mi>0.004</mi>
+                    <mo>=</mo>
+                    <mi>4</mi>
+                    <mo>&#xD7;</mo>
+                    <msqrt>
+                    <mfrac>
+                        <mrow>
+                            <mn>0.028</mn>
+                            <mo>-</mo>
+                            <mi>0.028</mi>
+                            <msup>
+                                <mo>&#8290;</mo>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </msup>
+                        </mrow>
+                        <mrow>
+                            <mi>24000</mi>
+                        </mrow>
+                    </mfrac>
+                    </msqrt>
+                    </mrow>
+                    </mstyle>
+                </math>
+            </p>
+        </div>
+        </div>
+        </div>
+    <hr>
+    <h2 class="mb-4">Background</h2>
+    <p>
+        Calculating the number of trials for an A/B test to achieve a statistically significant result is dependent on the size of the effect (the delta) you hope to observe - with smaller deltas requiring a larger number of trials to effectively observe the change.  
+    </p>
+    <p>
+        This calculator page simiplifies the process by standardising the calculations and using a simplified formula.
+    </p>
+    
+
+    </main>
+</div>
+
+
+<!-- Bootstrap JS (Optional if you need JS functionality) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>
+
+document.getElementById('clearButton').addEventListener('click',clear);
+
+
+
+    // Get all elements with the class 'clearable'
+var clearableInputs = document.querySelectorAll('.clearable');
+
+var base = document.getElementById('base');
+var delta = document.getElementById('delta');
+var trials = document.getElementById('trials');
+
+
+document.getElementById('Ncalc').addEventListener('click', function() {
+
+    const c = base.value / 100;
+    const d = delta.value / 100;
+
+    trials.value = round(16 * (c - c**2) / d**2,0);
+
+})
+
+document.getElementById('Dcalc').addEventListener('click', function() {
+
+    const c = base2.value / 100;
+    const N = trials2.value;
+
+    delta2.value = round((4 * ( (c-c**2) / N  )**0.5)*100,1);
+
+})
+
+// Add event listener to the submit button
+// document.getElementById('submitButton').addEventListener('click', function() {
+//   // Find the currently populated input
+//   var populatedInput = Array.from(clearableInputs).find(function(input) {
+//     return input.value !== '';
+//   });
+
+//   if (populatedInput) {
+//     // Get the value and id of the populated input
+//     var populatedValue = populatedInput.value;
+//     var populatedId = populatedInput.id;
+//     const ratio = parseFloat(document.getElementById('water_ratio').value);
+
+//     // Do something with the values
+//     // alert('Populated Input ID: ' + populatedId + ', Value: ' + populatedValue);
+//     console.log('Populated Input ID: ' + populatedId + ', Value: ' + populatedValue);
+
+
+//     if(populatedId=='grams'){
+//         let ml = calc_water_amounts_grams(populatedValue,ratio);
+//         water_ml_output.value = round(ml,0);
+//         water_floz_output.value = round(ml_to_floz(ml),1);
+//         water_cup_output.value = round(ml_to_cups(ml),1);
+
+//     }else if (populatedId=='ounces'){
+//         let val_grams = ounces_to_grams(populatedValue);
+//         let ml = calc_water_amounts_grams(val_grams,ratio);
+
+//         water_ml_output.value = round(ml,0);
+
+//         water_floz_output.value = round(ml_to_floz(ml),1);
+//         water_cup_output.value = ml_to_cups(ml);
+
+//     } else if (populatedId=='cups'){
+//         let val_grams = cups_to_grams(populatedValue);
+//         let ml = calc_water_amounts_grams(val_grams,ratio);
+
+//         water_ml_output.value = round(ml,0);
+//         water_floz_output.value = round(ml_to_floz(ml),1);
+//         water_cup_output.value = round(ml_to_cups(ml),1);
+//     }
+
+//   } else {
+//     alert('No input is populated.');
+//   }
+// });
+
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function round(value, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+}
+
+function clear(){
+    clearableInputs.forEach(function(otherInput) {
+            otherInput.value = '';
+        });
+}
+
+
+
+</script>
+</body>
+</html>
