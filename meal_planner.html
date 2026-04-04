@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Prep Planner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background:#f8f9fa; }
+        .timeline {
+            position: relative;
+            height: 720px;
+            border-left: 3px solid #333;
+            margin-top: 20px;
+        }
+        .time-label {
+            position: absolute;
+            left: -80px;
+            font-size: 12px;
+        }
+        .component {
+            position: absolute;
+            cursor: grab;
+        }
+        .phase { padding: 5px; color: white; font-size: 12px; }
+        .prep { background:#0d6efd; }
+        .cook { background:#dc3545; }
+        .rest { background:#198754; }
+        .delete-btn {
+            position: absolute;
+            top: 2px;
+            right: 5px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <span class="navbar-brand">Meal Prep Planner</span>
+    </div>
+</nav>
+
+<div class="container mt-4">
+
+    <div class="card p-3 mb-3">
+        <div class="row g-2 align-items-center">
+            <div class="col-md-2">
+                <label class="form-label mb-0">Serve Time</label>
+                <input id="serveTime" type="time" class="form-control" value="19:00">
+            </div>
+            <div class="col-md-2"><input id="name" class="form-control" placeholder="Dish name"></div>
+            <div class="col-md-2"><input id="prep" type="number" class="form-control" placeholder="Prep (min)"></div>
+            <div class="col-md-2"><input id="cook" type="number" class="form-control" placeholder="Cook (min)"></div>
+            <div class="col-md-2"><input id="rest" type="number" class="form-control" placeholder="Rest (min)"></div>
+            <div class="col-md-2"><button class="btn btn-primary w-100" onclick="addComponent()">Add</button></div>
+        </div>
+    </div>
+
+    <div class="timeline" id="timeline"></div>
+
+</div>
+
+<script>
+const timeline = document.getElementById('timeline');
+const scale = 2;
+const snapMinutes = 5;
+const snapPx = snapMinutes * scale;
+let components = [];
+
+function minutesFromTimeStr(t) {
+    const [h, m] = t.split(':').map(Number);
+    return h * 60 + m;
+}
+
+function formatTime(mins) {
+    mins = (mins + 1440) % 1440;
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+}
+
+function renderTimeline() {
+    timeline.innerHTML = '';
+    const serve = minutesFromTimeStr(document.getElementById('serveTime').value);
+
+    for (let y = 0; y <= timeline.clientHeight; y += 60) {
+        const minsOffset = Math.round(y / scale);
+        const labelTime = serve - minsOffset;
+
+        const label = document.createElement('div');
+        label.className = 'time-label';
+        label.style.top = y + 'px';
+        label.innerText = formatTime(labelTime);
+        timeline.appendChild(label);
+    }
+
+    components.forEach(c => timeline.appendChild(c));
+}
+
+renderTimeline();
+document.getElementById('serveTime').addEventListener('change', () => {
+    renderTimeline();
+    components.forEach(updateComponentDisplay);
+});
+
+function layoutComponents() {
+    const width = timeline.clientWidth;
+    const count = components.length;
+    if (count === 0) return;
+
+    const colWidth = width / count;
+
+    components.forEach((comp, i) => {
+        comp.style.width = (colWidth - 10) + 'px';
+        comp.style.left = (i * colWidth + 5) + 'px';
+    });
+}
+
+function deleteComponent(comp) {
+    components = components.filter(c => c !== comp);
+    comp.remove();
+    layoutComponents();
+}
+
+function addComponent() {
+    const name = document.getElementById('name').value || 'Dish';
+    const prep = parseInt(document.getElementById('prep').value) || 0;
+    const cook = parseInt(document.getElementById('cook').value) || 0;
+    const rest = parseInt(document.getElementById('rest').value) || 0;
+
+    const comp = document.createElement('div');
+    comp.className = 'component card';
+    comp.style.top = '0px';
+
+    comp.dataset.prep = prep;
+    comp.dataset.cook = cook;
+    comp.dataset.rest = rest;
+
+    comp.innerHTML = `
+        <div class="card-body p-1 position-relative">
+            <button class="btn btn-sm btn-danger delete-btn">×</button>
+            <strong>${name}</strong>
+            <div class="phases"></div>
+            <div class="small text-muted mt-1 total-time"></div>
+        </div>
+    `;
+
+    comp.querySelector('.delete-btn').addEventListener('click', () => deleteComponent(comp));
+
+    components.push(comp);
+    timeline.appendChild(comp);
+
+    makeDraggable(comp);
+    layoutComponents();
+    updateComponentDisplay(comp);
+}
+
+function updateComponentDisplay(el) {
+    const serve = minutesFromTimeStr(document.getElementById('serveTime').value);
+    const top = parseInt(el.style.top);
+
+    const prep = parseInt(el.dataset.prep);
+    const cook = parseInt(el.dataset.cook);
+    const rest = parseInt(el.dataset.rest);
+
+    const phasesContainer = el.querySelector('.phases');
+    phasesContainer.innerHTML = '';
+
+    const end = serve - (top / scale);
+    let cursor = end;
+
+    function addPhase(label, duration, cls) {
+        if (duration <= 0) return;
+        const start = cursor - duration;
+
+        const div = document.createElement('div');
+        div.className = `phase ${cls}`;
+        div.style.height = (duration * scale) + 'px';
+        div.innerText = `${label} (${formatTime(start)} → ${formatTime(cursor)})`;
+
+        phasesContainer.appendChild(div);
+        cursor = start;
+    }
+
+    addPhase('Rest', rest, 'rest');
+    addPhase('Cook', cook, 'cook');
+    addPhase('Prep', prep, 'prep');
+
+    el.querySelector('.total-time').innerText = `${formatTime(cursor)} → ${formatTime(end)}`;
+}
+
+function makeDraggable(el) {
+    let offsetY = 0;
+    let dragging = false;
+
+    el.addEventListener('mousedown', function(e) {
+        dragging = true;
+        offsetY = e.clientY - el.offsetTop;
+        el.style.cursor = 'grabbing';
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (dragging) {
+            let newTop = e.clientY - offsetY;
+
+            newTop = Math.max(0, Math.min(timeline.clientHeight - el.offsetHeight, newTop));
+            newTop = Math.round(newTop / snapPx) * snapPx;
+
+            el.style.top = newTop + 'px';
+            updateComponentDisplay(el);
+        }
+    });
+
+    document.addEventListener('mouseup', function() {
+        dragging = false;
+        el.style.cursor = 'grab';
+    });
+}
+
+window.addEventListener('resize', layoutComponents);
+</script>
+
+</body>
+</html>
